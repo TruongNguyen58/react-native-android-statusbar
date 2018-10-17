@@ -28,19 +28,28 @@ public class StatusBarModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setHexColor(String hex){
         int color = Color.parseColor(hex);
-        setStatusColor(color);
+        try{
+            setStatusColor(color);
+        } catch(Exception e) {
+        }
     }
 
     @ReactMethod
     public void setRGB(int r, int g, int b){
         int color = Color.rgb(r,g,b);
-        setStatusColor(color);
+        try{
+            setStatusColor(color);
+        } catch(Exception e) {
+        }
     }
 
     @ReactMethod
     public void setARGB(int a,int r, int g, int b){
         int color = Color.argb(a, r, g, b);
-        setStatusColor(color);
+        try{
+            setStatusColor(color);
+        } catch(Exception e) {
+        }
     }
 
     void setStatusColor(final int color){
@@ -48,10 +57,12 @@ public class StatusBarModule extends ReactContextBaseJavaModule {
             @Override
             public void run() {
                 if(Build.VERSION.SDK_INT >= 21){
-                    Window window = getCurrentActivity().getWindow();
-                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                    window.setStatusBarColor(color);
-
+                    try{
+                        Window window = getCurrentActivity().getWindow();
+                        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                        window.setStatusBarColor(color);
+                    } catch(Exception e) {
+                    }
                 }
 
             }
